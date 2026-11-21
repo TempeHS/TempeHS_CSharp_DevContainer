@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug: Desktop app (Avalonia)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "Build: Solution (Debug)",
+      "program": "${workspaceFolder}/src/HelloWorld.Desktop/bin/Debug/net10.0/HelloWorld.Desktop.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/HelloWorld.Desktop",
+      "env": { "DISPLAY": ":1" },
+      "console": "internalConsole",
+      "stopAtEntry": false
+    },
+    {
+      "name": "Debug: Console app",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "Build: Solution (Debug)",
+      "program": "${workspaceFolder}/src/HelloWorld.Console/bin/Debug/net10.0/HelloWorld.Console.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/HelloWorld.Console",
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    },
+    {
+      "name": "Attach to running .NET process",
+      "type": "coreclr",
+      "request": "attach"
+    }
+  ]
+}

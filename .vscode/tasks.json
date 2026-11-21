@@ -1,0 +1,106 @@
+{
+  "version": "2.0.0",
+  "options": {
+    "env": {
+      "DISPLAY": ":1"
+    }
+  },
+  "presentation": {
+    "reveal": "always",
+    "panel": "shared",
+    "clear": true
+  },
+  "tasks": [
+    {
+      "label": "Build: Solution (Debug)",
+      "type": "shell",
+      "command": "dotnet build TempeHS.CSharp.slnx -c Debug",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Build: Solution (Release)",
+      "type": "shell",
+      "command": "dotnet build TempeHS.CSharp.slnx -c Release",
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Run: Desktop app (Linux, in virtual desktop)",
+      "type": "shell",
+      "command": "dotnet run --project src/HelloWorld.Desktop",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Run: Console app (Linux)",
+      "type": "shell",
+      "command": "dotnet run --project src/HelloWorld.Console",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Publish: Linux x64 (self-contained)",
+      "type": "shell",
+      "command": "dotnet publish TempeHS.CSharp.slnx -c Release -r linux-x64",
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Publish: Windows x64 (self-contained .exe)",
+      "type": "shell",
+      "command": "dotnet publish TempeHS.CSharp.slnx -c Release -r win-x64",
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Publish: macOS (Apple Silicon + Intel, self-contained)",
+      "type": "shell",
+      "command": "dotnet publish TempeHS.CSharp.slnx -c Release -r osx-arm64 && dotnet publish TempeHS.CSharp.slnx -c Release -r osx-x64",
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Publish: All (Linux + Windows + macOS)",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Publish: Linux x64 (self-contained)",
+        "Publish: Windows x64 (self-contained .exe)",
+        "Publish: macOS (Apple Silicon + Intel, self-contained)"
+      ],
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run: Windows Desktop .exe (Wine, in virtual desktop)",
+      "type": "shell",
+      "command": "wine publish/win-x64/HelloWorld.Desktop.exe",
+      "dependsOn": "Publish: Windows x64 (self-contained .exe)",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run: Windows Console .exe (Wine)",
+      "type": "shell",
+      "command": "wine publish/win-x64/HelloWorld.Console.exe",
+      "dependsOn": "Publish: Windows x64 (self-contained .exe)",
+      "problemMatcher": []
+    },
+    {
+      "label": "Test: Run all tests",
+      "type": "shell",
+      "command": "dotnet test TempeHS.CSharp.slnx",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Clean: remove bin, obj and publish folders",
+      "type": "shell",
+      "command": "dotnet clean TempeHS.CSharp.slnx && rm -rf publish src/*/bin src/*/obj",
+      "problemMatcher": []
+    }
+  ]
+}

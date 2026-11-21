@@ -1,0 +1,78 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    name: Build, test and publish (Linux, Windows, macOS)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore TempeHS.CSharp.slnx
+
+      - name: Check formatting
+        run: dotnet format TempeHS.CSharp.slnx --verify-no-changes --no-restore
+
+      - name: Build
+        run: dotnet build TempeHS.CSharp.slnx -c Release --no-restore
+
+      - name: Test
+        run: dotnet test TempeHS.CSharp.slnx -c Release --no-build
+
+      - name: Publish Linux x64
+        run: |
+          dotnet publish TempeHS.CSharp.slnx -c Release -r linux-x64
+          ./publish/linux-x64/HelloWorld.Console
+
+      - name: Publish Windows x64
+        run: dotnet publish TempeHS.CSharp.slnx -c Release -r win-x64
+
+      - name: Publish macOS (Apple Silicon + Intel)
+        run: |
+          dotnet publish TempeHS.CSharp.slnx -c Release -r osx-arm64
+          dotnet publish TempeHS.CSharp.slnx -c Release -r osx-x64
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hello-linux-x64
+          path: publish/linux-x64/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hello-windows-x64
+          path: publish/win-x64/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hello-macos-arm64
+          path: publish/osx-arm64/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hello-macos-x64
+          path: publish/osx-x64/
+
+  smoke-test-windows:
+    name: Run the Windows build on a real Windows runner
+    needs: build-and-publish
+    runs-on: windows-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: hello-windows-x64
+          path: publish/win-x64
+
+      - name: Run console app
+        shell: pwsh
+        run: ./publish/win-x64/HelloWorld.Console.exe

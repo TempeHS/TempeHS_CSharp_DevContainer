@@ -1,0 +1,36 @@
+{
+  // Solution C# Dev Kit opens by default
+  "dotnet.defaultSolution": "TempeHS.CSharp.slnx",
+  "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": true,
+  "dotnet.inlayHints.enableInlayHintsForParameters": true,
+  "csharp.inlayHints.enableInlayHintsForImplicitVariableTypes": true,
+
+  // Formatting (rules live in .editorconfig)
+  "editor.formatOnSave": true,
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "AvaloniaTeam.vscode-avalonia"
+  },
+  "files.associations": {
+    "*.axaml": "xml",
+    "*.slnx": "xml"
+  },
+
+  // Hide build output from the Explorer and from search
+  "files.exclude": {
+    "**/bin": true,
+    "**/obj": true
+  },
+  "search.exclude": {
+    "**/bin": true,
+    "**/obj": true,
+    "**/publish": true
+  },
+
+  // GUI apps launched from the terminal appear in the virtual desktop (port 6080)
+  "terminal.integrated.env.linux": {
+    "DISPLAY": ":1"
+  }
+}

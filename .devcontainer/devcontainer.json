@@ -1,0 +1,60 @@
+{
+  "name": "C# Desktop (.NET 10 \u00b7 Avalonia \u00b7 Linux + Windows builds)",
+  "image": "mcr.microsoft.com/devcontainers/dotnet:2-10.0-noble",
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "password": "vscode",
+      "webPort": "6080",
+      "vncPort": "5901"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "8gb",
+    "storage": "32gb"
+  },
+  "forwardPorts": [
+    6080
+  ],
+  "portsAttributes": {
+    "6080": {
+      "label": "Virtual Desktop (noVNC)",
+      "onAutoForward": "openBrowser"
+    },
+    "5901": {
+      "label": "VNC",
+      "onAutoForward": "silent"
+    }
+  },
+  "containerEnv": {
+    "DISPLAY": ":1",
+    "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+    "DOTNET_NOLOGO": "1",
+    "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "1",
+    "EnableWindowsTargeting": "true",
+    "WINEARCH": "win64",
+    "WINEDEBUG": "-all"
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.csdevkit",
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "AvaloniaTeam.vscode-avalonia",
+        "EditorConfig.EditorConfig",
+        "eamodio.gitlens",
+        "github.vscode-pull-request-github",
+        "github.vscode-github-actions"
+      ],
+      "settings": {
+        "terminal.integrated.env.linux": {
+          "DISPLAY": ":1"
+        }
+      }
+    }
+  }
+}

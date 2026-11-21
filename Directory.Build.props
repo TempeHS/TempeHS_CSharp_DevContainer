@@ -1,0 +1,10 @@
+<Project>
+  <!-- Shared MSBuild settings for every project under this folder. -->
+
+  <!-- When publishing for a specific platform (e.g. `dotnet publish -r win-x64`), put the
+       output for ALL projects in publish/<runtime>/ at the repository root instead of
+       deep inside each project's bin/ folder. -->
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' != ''">
+    <PublishDir>$(MSBuildThisFileDirectory)publish/$(RuntimeIdentifier)/</PublishDir>
+  </PropertyGroup>
+</Project>

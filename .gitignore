@@ -1,0 +1,23 @@
+# Build output
+bin/
+obj/
+publish/
+*.user
+*.suo
+
+# Rider / Visual Studio / VS Code local state
+.idea/
+.vs/
+*.swp
+
+# Test results
+TestResults/
+*.trx
+
+# NuGet
+*.nupkg
+project.lock.json
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/HelloWorld.Console/HelloWorld.Console.csproj" />
+    <Project Path="src/HelloWorld.Desktop/HelloWorld.Desktop.csproj" />
+  </Folder>
+</Solution>

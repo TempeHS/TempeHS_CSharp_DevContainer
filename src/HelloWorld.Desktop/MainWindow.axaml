@@ -1,0 +1,36 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="320"
+        x:Class="HelloWorld.Desktop.MainWindow"
+        Title="Hello World - TempeHS C#"
+        Width="480" Height="320"
+        WindowStartupLocation="CenterScreen">
+
+    <!-- A StackPanel lays its children out top-to-bottom. -->
+    <StackPanel Margin="24" Spacing="16" VerticalAlignment="Center">
+
+        <TextBlock Text="Hello, World!"
+                   FontSize="32" FontWeight="Bold"
+                   HorizontalAlignment="Center" />
+
+        <!-- x:Name lets the code-behind (MainWindow.axaml.cs) reach this control. -->
+        <TextBlock x:Name="PlatformText"
+                   FontSize="14" Opacity="0.7"
+                   TextWrapping="Wrap" TextAlignment="Center"
+                   HorizontalAlignment="Center" />
+
+        <!-- Click="..." wires the button to the OnClickMe method in the code-behind. -->
+        <Button x:Name="ClickMeButton"
+                Content="Click me!"
+                Click="OnClickMe"
+                HorizontalAlignment="Center"
+                Padding="24,8" />
+
+        <TextBlock x:Name="CounterText"
+                   Text="You have not clicked the button yet."
+                   HorizontalAlignment="Center" />
+
+    </StackPanel>
+</Window>
